@@ -6,6 +6,7 @@ public class Tester {
     failure = constructorTester() || failure;
     failure = addAndGetAndSizeTester() || failure;
     failure = setTester() || failure;
+    failure = resizeTester() || failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
@@ -160,7 +161,35 @@ public class Tester {
     }
     methodMessage("changingArray set()", failure);
 
-    methodMessage("\nsetTester()", failure);
+    methodMessage("setTester()", failure);
+    return failure;
+  }
+
+  public static boolean resizeTester() {
+    System.out.println("\n ~~~ resize() TESTER ~~~");
+    boolean failure = false;
+    SuperArray test = new SuperArray();
+    for (int n = 0; n < 32; n++) {
+      test.add("foo");
+    }
+
+    for (int index = 0; index < 32; index++) {
+      if (test.get(index).equals("foo")) {
+        //passMessage(index);
+      } else {
+        failure = true;
+        errorMessage(index, "foo", test.get(index));
+      }
+    }
+
+    if (test.size() != 32) {
+      failure = true;
+      System.out.println("Sizing is incorrect.");
+    } else {
+      System.out.println("Sizing is correct.");
+    }
+
+    methodMessage("resize()", failure);
     return failure;
   }
 
