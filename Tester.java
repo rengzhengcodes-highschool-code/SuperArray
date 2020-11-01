@@ -159,8 +159,9 @@ public class Tester {
         errorMessage(index, "banas", test.get(index));
       }
     }
-    methodMessage("changingArray set()", failure);
+    methodMessage("changingArray set()", changingArrayFailure);
 
+    failure = failure || changingArrayFailure || unchangedArrayFailure;
     methodMessage("setTester()", failure);
     return failure;
   }
