@@ -6,6 +6,7 @@ public class Tester {
     failure = constructorTester() || failure;
     failure = addAndGetAndSizeTester() || failure;
 
+    System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
       System.out.println("Is that blue smoke?");
     } else {
@@ -23,6 +24,14 @@ public class Tester {
     System.out.println("ACTUAL: " + actual);
   }
 
+  private static void methodMessage(String method, boolean failure) {
+    if (failure) {
+      System.out.println("\nAt least one test case failed for " + method);
+    } else {
+      System.out.println(method + " PASSED");
+    }
+  }
+
   public static boolean constructorTester() {
     System.out.println("\n ~~~ constructor TESTER ~~~");
     boolean failure = false;
@@ -33,16 +42,12 @@ public class Tester {
       errorMessage(0, "" + 0, "" + test.size());
     }
 
-    if (failure) {
-      System.out.println("\nAt least one test case failed for constructorTester()");
-    } else {
-      System.out.println("constructorTester() PASSED");
-    }
+    methodMessage("constructorTester()", failure);
     return failure;
   }
 
   public static boolean addAndGetAndSizeTester() {
-    System.out.println("\nadd() AND get() AND size() TESTER");
+    System.out.println("\n ~~~ add() AND get() AND size() TESTER ~~~");
     boolean failure = false;
     SuperArray test = new SuperArray();
     String[] elementsToAdd = {
@@ -55,12 +60,13 @@ public class Tester {
     for (int index = 0; index < elementsToAdd.length; index++) {
       test.add(elementsToAdd[index]);
       if (test.size() == index + 1) {
-        passMessage(index);
+        //passMessage(index);
       } else {
         errorMessage(index, "" + (index + 1), "" + test.size());
       }
     }
 
+    methodMessage("addAndGetAndSizeTester()", failure);
     return failure;
   }
 
