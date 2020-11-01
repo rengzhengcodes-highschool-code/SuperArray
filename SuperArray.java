@@ -5,6 +5,10 @@ public class SuperArray {
 
   public SuperArray() {
     size = 10;
+    data = new String[size];
   }
 
+  public int size()  {
+    return size;
+  }
 }
