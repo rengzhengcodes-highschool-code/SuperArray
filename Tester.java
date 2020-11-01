@@ -37,8 +37,9 @@ public class Tester {
     boolean failure = false;
     SuperArray test = new SuperArray();
     if (test.size() == 0) {
-      passMessage(0);
+      //passMessage(0);
     } else {
+      failure = true;
       errorMessage(0, "" + 0, "" + test.size());
     }
 
@@ -59,14 +60,32 @@ public class Tester {
     System.out.println("add() + size() Portion of Testing");
     for (int index = 0; index < elementsToAdd.length; index++) {
       test.add(elementsToAdd[index]);
-      if (test.size() == index + 1) {
+      int expectedSize = index + 1;
+      if (test.size() == expectedSize) {
         //passMessage(index);
       } else {
-        errorMessage(index, "" + (index + 1), "" + test.size());
+        failure = true;
+        errorMessage(index, "" + (expectedSize), "" + test.size());
       }
     }
+    methodMessage("add() and size() testing", failure);
 
-    methodMessage("addAndGetAndSizeTester()", failure);
+
+    System.out.println("\nget() Portion of Testing");
+    boolean failureForGet = false;
+    for (int index = 0; index < elementsToAdd.length; index++) {
+      String expectedGet = elementsToAdd[index];
+      if (test.get(index).equals(expectedGet)) {
+        //passMessage(index);
+      } else {
+        failureForGet = true;
+        errorMessage(index, expectedGet, test.get(index));
+      }
+    }
+    methodMessage("get()", failureForGet);
+
+    failure = failure || failureForGet;
+    methodMessage("\naddAndGetAndSizeTester()", failure);
     return failure;
   }
 
