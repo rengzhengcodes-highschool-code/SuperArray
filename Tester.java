@@ -5,6 +5,7 @@ public class Tester {
     boolean failure = false;
     failure = constructorTester() || failure;
     failure = addAndGetAndSizeTester() || failure;
+    failure = setTester() || failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
@@ -86,6 +87,80 @@ public class Tester {
 
     failure = failure || failureForGet;
     methodMessage("\naddAndGetAndSizeTester()", failure);
+    return failure;
+  }
+
+  public static boolean setTester() {
+    System.out.println("\n ~~~ set() TESTER ~~~");
+    boolean failure = false;
+    SuperArray test = new SuperArray();
+    String[] elementsToAdd = {
+      "foo",
+      "bar",
+      "bread"
+    };
+
+    System.out.println("Testing while not adding");
+    boolean unchangedArrayFailure = false;
+    for (int index = 0; index < elementsToAdd.length; index++) {
+      test.add(elementsToAdd[index]);
+    }
+    for (int index = 0; index < elementsToAdd.length; index++) {
+      String output = test.set(index, "banas");
+      String expected = elementsToAdd[index];
+
+      if (output.equals(expected)) {
+        /*System.out.println("Returns correct value.");
+        passMessage(index);*/
+      } else {
+        failure = true;
+        unchangedArrayFailure = true;
+        System.out.println("Does not return correct value.");
+        errorMessage(index, "banas", test.get(index));
+      }
+
+      if (test.get(index).equals("banas")) {
+        /*System.out.println("Sets correct value.");
+        passMessage(index);*/
+      } else {
+        failure = true;
+        unchangedArrayFailure = true;
+        System.out.println("Sets incorrect value.");
+      }
+    }
+    methodMessage("unchangedArray set()", unchangedArrayFailure);
+
+    System.out.println("\nTesting while adding.");
+    test = new SuperArray();
+    boolean changingArrayFailure = false;
+    for (int index = 0; index < elementsToAdd.length; index++) {
+      test.add(elementsToAdd[index]);
+      String output = test.set(index, "banas");
+      String expected = elementsToAdd[index];
+
+      if (output.equals(expected)) {
+        /*System.out.println("Returns correct value.");
+        passMessage(index);*/
+      } else {
+        failure = true;
+        changingArrayFailure = true;
+        System.out.println("Does not return correct value.");
+        errorMessage(index, "banas", expected);
+      }
+
+      if (test.get(index).equals("banas")) {
+        /*System.out.println("Sets correct value.");
+        passMessage(index);*/
+      } else {
+        failure = true;
+        changingArrayFailure = true;
+        System.out.println("Sets incorrect value.");
+        errorMessage(index, "banas", test.get(index));
+      }
+    }
+    methodMessage("changingArray set()", failure);
+
+    methodMessage("\nsetTester()", failure);
     return failure;
   }
 
