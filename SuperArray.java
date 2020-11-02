@@ -23,7 +23,11 @@ public class SuperArray {
   }
 
   public String get(int index) {
-    return data[index];
+    if (index < size) {
+      return data[index];
+    } else {
+      return null;
+    }
   }
 
   public String set(int index, String element) {

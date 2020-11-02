@@ -5,6 +5,7 @@ public class Tester {
     boolean failure = false;
     failure = constructorTester() || failure;
     failure = addAndGetAndSizeTester() || failure;
+    failure = outOfBoundsGetTester()  || failure;
     failure = setTester() || failure;
     failure = resizeTester() || failure;
 
@@ -88,6 +89,30 @@ public class Tester {
 
     failure = failure || failureForGet;
     methodMessage("\naddAndGetAndSizeTester()", failure);
+    return failure;
+  }
+
+  public static boolean outOfBoundsGetTester() {
+    System.out.println("\n ~~~ Out of Bounds get() TESTER ~~~");
+    boolean failure = false;
+    SuperArray test = new SuperArray();
+    String[] elementsToAdd = {
+      "foo",
+      "bar",
+      "bread"
+    };
+    for (int index = 0; index < elementsToAdd.length; index++) {
+      test.add(elementsToAdd[index]);
+    }
+    for (int index = 3; index < 12; index++) {
+      if (test.get(index) == null) {
+        //passMessage(index - 3);
+      } else {
+        failure = true;
+      }
+    }
+
+    methodMessage("out of bounds get() ", failure);
     return failure;
   }
 
