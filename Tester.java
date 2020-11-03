@@ -5,7 +5,7 @@ public class Tester {
     boolean failure = false;
     failure = constructorTester() || failure;
     failure = addAndGetAndSizeTester() || failure;
-    failure = outOfBoundsGetTester()  || failure;
+    //failure = outOfBoundsGetTester()  || failure;
     failure = setTester() || failure;
     failure = resizeTester() || failure;
 
@@ -142,7 +142,7 @@ public class Tester {
         failure = true;
         unchangedArrayFailure = true;
         System.out.println("Does not return correct value.");
-        errorMessage(index, "banas", test.get(index));
+        errorMessage(index, expected, output);
       }
 
       if (test.get(index).equals("banas")) {
@@ -171,7 +171,7 @@ public class Tester {
         failure = true;
         changingArrayFailure = true;
         System.out.println("Does not return correct value.");
-        errorMessage(index, "banas", expected);
+        errorMessage(index, expected, output);
       }
 
       if (test.get(index).equals("banas")) {
