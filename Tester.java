@@ -13,6 +13,7 @@ public class Tester {
     failure = toStringTester() || failure;
     failure = containsTester() || failure;
     failure = constructorWithInitialCapacityTester() || failure;
+    failure = addAtIndexTester() || failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
@@ -427,5 +428,68 @@ public class Tester {
     return failure;
   }
 
+  public static boolean addAtIndexTester() {
+    System.out.println("\n ~~~ addAtIndexTester() TESTER ~~~");
+    boolean failure = false;
+    SuperArray test = new SuperArray();
+    System.out.println("Testing negative and out of bounds methods.");
+    try {
+      test.add(-1, "0");
+      failure = true;
+      System.out.println("Someone added to a negative index.");
+    } catch (Exception e) {
+      //System.out.println("Yup, can't add to a negative index.");
+    }
+
+    try {
+      test.add(0, "0");
+      failure = true;
+      System.out.println("Inserting at out of bounds index!");
+    } catch (Exception e) {
+      //System.out.println("Yup, can't insert to something out of index.");
+    }
+
+    try {
+      test.add(1, "0");
+      failure = true;
+      System.out.println("Inserting at out of bounds index!");
+    } catch (Exception e) {
+      //System.out.println("Yup, can't insert to something out of index 2.");
+    }
+
+    System.out.println("\nTesting actual insertions: Extremities");
+    test = defaultTestArray();
+    int[] indexToInsert = {
+      0,
+      7,
+      6,
+    };
+    String[] expected = {
+      "[0, test0, test1, test2, test3, test4, test5, test6, test7]",
+      "[test0, test1, test2, test3, test4, test5, test6, 0, test7]",
+      "[test0, test1, test2, test3, test4, test5, 0, test6, test7]",
+    };
+
+    for (int index = 0; index < indexToInsert.length; index++) {
+      try {
+        //System.out.println(test.toString());
+        test.add(indexToInsert[index], "0");
+        if (test.toString().equals(expected[index])) {
+          //System.out.println("Added right! \n" + test.toString());
+        } else {
+          failure = true;
+          System.out.println("You're not adding right.");
+          errorMessage(index, expected[index], test.toString());
+        }
+      } catch (Exception e) {
+        failure = true;
+        System.out.println("You're adding out of index, kid. You shouldn't.");
+      }
+      test = defaultTestArray();
+    }
+
+    methodMessage("addAtIndex()", failure);
+    return failure;
+  }
 
 }

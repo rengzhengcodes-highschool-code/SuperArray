@@ -87,9 +87,31 @@ public class SuperArray {
     return false;
   }
 
-  public SuperArray(int initialCapacity) {
+  public SuperArray(int initialCapacity) throws ArrayIndexOutOfBoundsException {
       this.size = 0;
       this.data = new String[initialCapacity];
+  }
+
+  public void add(int index, String element) {
+    if (index >= this.size || index < 0) {
+      throw new ArrayIndexOutOfBoundsException("Out of index for dynamic array");
+    }
+    int addOffset = 0;                                                          //not a boolean as extra compute time needed to check boolean
+    int dynamicIndex = 0;
+    String[] dataNew = new String[this.size + 1];
+    dataNew[index] = element;
+    for (int i = 0; i < this.data.length; i++) {
+      if (dynamicIndex == index) {
+        dynamicIndex++;
+      }
+      if (data[i] != null) {
+        dataNew[dynamicIndex + addOffset] = this.data[i];
+        dynamicIndex++;
+      }
+    }
+
+    this.size++;
+    data = dataNew;
   }
 
 }
