@@ -55,4 +55,23 @@ public class SuperArray {
     return this.size == 0;
   }
 
+  public String toString() {
+    int addedValues = 0;
+    String output = "[";
+    String spacer = ", ";
+    for (int i = 0; i < this.data.length; i++) {
+      if (data[i] != null) {
+        addedValues++;
+        output += this.data[i] + spacer;
+      }
+    }
+
+    if (output.contains(", ")) {
+      output = output.substring(0, output.lastIndexOf(", "));
+    }
+
+    output += "]";
+    return output;
+  }
+
 }

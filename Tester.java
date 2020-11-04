@@ -10,6 +10,7 @@ public class Tester {
     failure = resizeTester() || failure;
     failure = clearTester() ||  failure;
     failure = isEmptyTester() || failure;
+    failure = toStringTester() || failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
@@ -295,6 +296,36 @@ public class Tester {
     }
 
     methodMessage("isEmpty()", failure);
+    return failure;
+  }
+
+  public static boolean toStringTester() {
+    System.out.println("\n ~~~ toString() TESTER ~~~");
+    boolean failure = false;
+    SuperArray[] tests = {
+      new SuperArray(),
+      defaultTestArray(),
+      defaultTestArray()
+    };
+    tests[2].set(2, null);                                                      //pops holes in some areas of the SuperArray
+    tests[2].set(6, null);
+
+    String[] expected = {
+      "[]",
+      "[test0, test1, test2, test3, test4, test5, test6, test7]",
+      "[test0, test1, test3, test4, test5, test7]"
+    };
+
+    for (int index = 0; index < tests.length; index++) {
+      if (tests[index].toString().equals(expected[index])) {
+        //passMessage(index);
+      } else {
+        failure = true;
+        errorMessage(index, expected[index], tests[index].toString());
+      }
+    }
+
+    methodMessage("toString()", failure);
     return failure;
   }
 
