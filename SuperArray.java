@@ -37,7 +37,7 @@ public class SuperArray {
   }
 
   private void resize() {
-    String[] dataNew = new String[this.data.length + 8];
+    String[] dataNew = new String[this.data.length * 2];
 
     for (int index = 0; index < this.data.length; index++) {
       dataNew[index] = this.data[index];
