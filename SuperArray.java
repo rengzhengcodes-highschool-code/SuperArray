@@ -74,4 +74,13 @@ public class SuperArray {
     return output;
   }
 
+  public boolean contains(String s) {
+    for (String element : this.data) {
+      if (element.equals(s)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 }
