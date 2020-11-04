@@ -4,51 +4,55 @@ public class SuperArray {
   private int size = 0; //current array size
 
   public SuperArray() {
-    size = 0;
-    data = new String[8];
+    this.size = 0;
+    this.data = new String[8];
   }
 
   public int size()  {
-    return size;
+    return this.size;
   }
 
   public boolean add(String element) {
-    if (size == data.length) {
+    if (this.size == this.data.length) {
       this.resize();
     }
 
-    data[size] = element;
-    size++;
+    this.data[this.size] = element;
+    this.size++;
     return true;
   }
 
   public String get(int index) {
-    if (index < size) {
-      return data[index];
+    if (index < this.size) {
+      return this.data[index];
     } else {
       return null;
     }
   }
 
   public String set(int index, String element) {
-    String replaced = data[index];
-    data[index] = element;
+    String replaced = this.data[index];
+    this.data[index] = element;
     return replaced;
   }
 
   private void resize() {
-    String[] dataNew = new String[data.length + 8];
+    String[] dataNew = new String[this.data.length + 8];
 
-    for (int index = 0; index < data.length; index++) {
-      dataNew[index] = data[index];
+    for (int index = 0; index < this.data.length; index++) {
+      dataNew[index] = this.data[index];
     }
 
-    data = dataNew;
+    this.data = dataNew;
   }
 
   public void clear() {
-    data = new String[8];
-    size = 0;
+    this.data = new String[8];
+    this.size = 0;
+  }
+
+  public boolean isEmpty() {
+    return this.size == 0;
   }
 
 }
