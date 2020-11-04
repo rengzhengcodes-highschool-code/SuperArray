@@ -12,6 +12,7 @@ public class Tester {
     failure = isEmptyTester() || failure;
     failure = toStringTester() || failure;
     failure = containsTester() || failure;
+    failure = constructorWithInitialCapacityTester() || failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
@@ -407,5 +408,24 @@ public class Tester {
     methodMessage("contains()", failure);
     return failure;
   }
+
+  public static boolean constructorWithInitialCapacityTester() {
+    System.out.println("\n ~~~ constructor with initial array size TESTER ~~~");
+    boolean failure = false;
+    SuperArray test = new SuperArray(200);
+    for (int i = 0; i < 500; i++) {
+      try {
+        test.add("" + i);
+        //System.out.println("" + i + " added");
+      } catch (Exception e) {
+        errorMessage(i, "It to add.", "It didn't add");
+        failure = true;
+      }
+    }
+
+    methodMessage("constructorWithInitialCapacitySet()", failure);
+    return failure;
+  }
+
 
 }
