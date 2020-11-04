@@ -5,9 +5,10 @@ public class Tester {
     boolean failure = false;
     failure = constructorTester() || failure;
     failure = addAndGetAndSizeTester() || failure;
-    //failure = outOfBoundsGetTester()  || failure;
+    failure = outOfBoundsGetTester()  || failure;
     failure = setTester() || failure;
     failure = resizeTester() || failure;
+    failure = clearTester() ||  failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
@@ -33,6 +34,14 @@ public class Tester {
     } else {
       System.out.println(method + " PASSED");
     }
+  }
+
+  private static SuperArray defaultTestArray() {
+    SuperArray test = new SuperArray();
+    for (int i = 0; i < 8; i++) {
+      test.add("test" + i);
+    }
+    return test;
   }
 
   public static boolean constructorTester() {
@@ -216,6 +225,43 @@ public class Tester {
     }
 
     methodMessage("resize()", failure);
+    return failure;
+  }
+
+  public static boolean clearTester() {
+    System.out.println("\n ~~~ clear() TESTER ~~~");
+    boolean failure = false;
+    SuperArray test = defaultTestArray();
+    SuperArray before = defaultTestArray();
+
+    for (int index = 0; index < test.size(); index++) {
+      if (test.get(index).equals(before.get(index))) {
+        //passMessage(index);
+      } else {
+        failure = true;
+        System.out.println("Uh oh. Default array assignment is off.");
+        errorMessage(index, before.get(index), test.get(index));
+      }
+    }
+
+    test.clear();
+    for (int index = 0; index < before.size() /*this checks if any referrals to old values*/; index++) {
+      boolean passed = true;
+      if (test.get(index) != null) {
+        passed = false;
+        errorMessage(index, null, test.get(index));
+      }
+      if (before.get(index) == null) {
+        passed  = false;
+        errorMessage(index, defaultTestArray().get(index), before.get(index));
+      }
+      if (passed) {
+        //passMessage(index);
+      }
+      failure = failure || !passed;
+    }
+
+    methodMessage("clear()", failure);
     return failure;
   }
 
