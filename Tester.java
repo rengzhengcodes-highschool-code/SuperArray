@@ -9,6 +9,7 @@ public class Tester {
     failure = setTester() || failure;
     failure = resizeTester() || failure;
     failure = clearTester() ||  failure;
+    failure = isEmptyTester() || failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
@@ -262,6 +263,38 @@ public class Tester {
     }
 
     methodMessage("clear()", failure);
+    return failure;
+  }
+
+  public static boolean isEmptyTester() {
+    System.out.println("\n ~~~ isEmpty() TESTER ~~~");
+    boolean failure = false;
+    SuperArray test = new SuperArray();
+
+    if (test.isEmpty()) {
+      //System.out.println("New SuperArrays do verify as empty.");
+    } else {
+      failure = true;
+      System.out.println("New SuperArrays don't verify as empty.");
+    }
+
+    test = defaultTestArray();
+    if (test.isEmpty() == false) {
+      //System.out.println("Occupied SuperArrays aren't empty.");
+    } else {
+      failure = true;
+      System.out.println("Occupied SuperArrays evaluate as empty.");
+    }
+
+    test.clear();
+    if (test.isEmpty()) {
+      //System.out.println("Cleared SuperArrays are empty.");
+    } else {
+      failure = true;
+      System.out.println("Cleared SuperArrays do not evaluate as empty.");
+    }
+
+    methodMessage("isEmpty()", failure);
     return failure;
   }
 
