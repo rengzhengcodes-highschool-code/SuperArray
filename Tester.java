@@ -11,6 +11,7 @@ public class Tester {
     failure = clearTester() ||  failure;
     failure = isEmptyTester() || failure;
     failure = toStringTester() || failure;
+    failure = containsTester() || failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
@@ -326,6 +327,84 @@ public class Tester {
     }
 
     methodMessage("toString()", failure);
+    return failure;
+  }
+
+  public static boolean containsTester() {
+    System.out.println("\n ~~~ contains() TESTER ~~~");
+    boolean failure = false;
+    SuperArray test = new SuperArray();
+
+    System.out.println("Testing with an empty array.");
+    if (test.contains("blah")) {
+      failure = true;
+      System.out.println("Uh oh, it thinks new empty arrays have stuff.");
+    } else {
+      //System.out.println("Empty arrays contain nothing!");
+    }
+
+    if (test.contains(null)) {
+      failure = true;
+      System.out.println("It should not contain null.");
+    } else {
+      //System.out.println("Yup, it ignores null");
+    }
+
+    System.out.println("\nTesting with not empty array.");
+    test = defaultTestArray();
+    if (test.contains("test7") && test.contains("test0") && test.contains("test2")) {
+      //System.out.println("It does contain all the stuff! Even the extremities!");
+    } else {
+      failure = true;
+      System.out.println("You got an error with contains. Probably the extremities.");
+    }
+
+    if (!test.contains("test8")) {
+      //System.out.println("It doesn't think it contains stuff that's not in the Array.");
+    } else {
+      failure = true;
+      System.out.println("It thinks the array has stuff it doesn't.");
+    }
+
+    if (test.contains(null)) {
+      failure = true;
+      System.out.println("How does it think it has null? The array is filled.");
+    } else {
+      //System.out.println("Your array doesn't think it has null values in a full array!");
+    }
+
+    System.out.println("\nTesting with not holes in array.");
+    test.set(2, null);
+    test.set(6, null);
+    if (test.contains("test7") && test.contains("test0") && test.contains("test1")) {
+      //System.out.println("It does contain all the stuff! Even the extremities!");
+    } else {
+      failure = true;
+      System.out.println("You got an error with contains. Probably the extremities.");
+    }
+
+    if (test.contains("test2")) {
+      failure = true;
+      System.out.println("It thinks it contains a deleted value.");
+    } else {
+      //System.out.println("It does not think it contains a deleted value.");
+    }
+
+    if (!test.contains("test8")) {
+      //System.out.println("It doesn't think it contains stuff that's not in the Array.");
+    } else {
+      failure = true;
+      System.out.println("It thinks the array has stuff it doesn't.");
+    }
+
+    if (test.contains(null)) {
+      failure = true;
+      System.out.println("How does it think it has null? It shouldn't think that.");
+    } else {
+      //System.out.println("Your array doesn't think it has null values even with holes in the static!");
+    }
+
+    methodMessage("contains()", failure);
     return failure;
   }
 

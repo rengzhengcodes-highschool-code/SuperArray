@@ -75,12 +75,21 @@ public class SuperArray {
   }
 
   public boolean contains(String s) {
+    if (s == null || this.size == 0) {
+      return false;
+    }
+
     for (String element : this.data) {
-      if (element.equals(s)) {
+      if (element != null && element.equals(s)) {
         return true;
       }
     }
     return false;
+  }
+
+  public SuperArray(int initialCapacity) {
+      this.size = 0;
+      this.data = new String[initialCapacity];
   }
 
 }
