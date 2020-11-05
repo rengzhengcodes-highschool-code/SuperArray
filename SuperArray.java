@@ -130,8 +130,38 @@ public class SuperArray {
       }
     }
 
+    this.size--;
     this.data = dataNew;
     return popped;
+  }
+
+  public int indexOf(String s) {
+    if (this.size == 0) {
+      return -1;
+    }
+    int dynamicIndex = 0;
+    for (String element : this.data) {
+      if (element != null) {
+        if (element.equals(s)) {
+          return dynamicIndex;
+        }
+        dynamicIndex++;
+      }
+    }
+
+    return -1;
+  }
+
+  public String[] toArray() {
+    String[] output = new String[size];
+    int dynamicIndex = 0;
+    for (String element : this.data) {
+      if (element != null) {
+        output[dynamicIndex] = element;
+        dynamicIndex++;
+      }
+    }
+    return output;
   }
 
 }

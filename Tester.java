@@ -15,6 +15,8 @@ public class Tester {
     failure = constructorWithInitialCapacityTester() || failure;
     failure = addAtIndexTester() || failure;
     failure = removeTester() || failure;
+    failure = indexOfTester() ||failure;
+    failure = toArrayTester() || failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
@@ -482,11 +484,89 @@ public class Tester {
           System.out.println("You're not adding right.");
           errorMessage(index, expected[index], test.toString());
         }
+
+        if (test.size() == 9) {
+          //System.out.println("Size right!"";
+        } else {
+          failure = true;
+          System.out.println("You're not adding right.");
+          errorMessage(index, "" + 9, "" + test.size());
+        }
       } catch (Exception e) {
         failure = true;
         System.out.println("You're adding out of index, kid. You shouldn't.");
       }
       test = defaultTestArray();
+    }
+
+    System.out.println("\nTesting actual insertions with Holes: Extremities");
+    test = defaultTestArray();
+    String[] newExpecteds = {
+      "[0, test1, test2, test3, test4, test5, test6, test7]",
+      "[test0, test1, test2, test3, test4, test5, test6, 0]",
+      "[test0, test1, test2, test3, test4, test5, 0, test7]",
+    };
+    expected = newExpecteds;
+
+    for (int index = 0; index < indexToInsert.length; index++) {
+      test.set(indexToInsert[index], null);
+      try {
+        //System.out.println(test.toString());
+        test.add(indexToInsert[index], "0");
+        if (test.toString().equals(expected[index])) {
+          //System.out.println("Added right! \n" + test.toString());
+        } else {
+          failure = true;
+          System.out.println("You're not adding right.");
+          errorMessage(index, expected[index], test.toString());
+        }
+
+        if (test.size() == 9) {
+          //System.out.println("Size right!"";
+        } else {
+          failure = true;
+          System.out.println("You're not adding right.");
+          errorMessage(index, "" + 8, "" + test.size());
+        }
+      } catch (Exception e) {
+        failure = true;
+        System.out.println("You're adding out of index, kid. You shouldn't.");
+      }
+      test = defaultTestArray();
+    }
+
+    int expectedSize = 9;
+    String[] newExpecteds2 = {
+      "[0, test0, test1, test2, test4, test5, test6, test7]",
+      "[0, test0, test1, test2, test4, test5, test6, 0, test7]",
+      "[0, test0, test1, test2, test4, test5, 0, test6, 0, test7]"
+    };
+    expected = newExpecteds2;
+    test.set(3, null);
+    for (int index = 0; index < indexToInsert.length; index++) {
+      try {
+        //System.out.println(test.toString());
+        test.add(indexToInsert[index], "0");
+        if (test.toString().equals(expected[index])) {
+          //System.out.println("Added right! \n" + test.toString());
+        } else {
+          failure = true;
+          System.out.println("You're not adding right.");
+          errorMessage(index, expected[index], test.toString());
+        }
+
+        if (test.size() == expectedSize) {
+          //System.out.println("Size right!"";
+        } else {
+          failure = true;
+          System.out.println("You're not adding right.");
+          errorMessage(index, "" + expectedSize, "" + test.size());
+        }
+      } catch (Exception e) {
+        failure = true;
+        System.out.println("You're adding out of index, kid. You shouldn't.");
+      }
+      expectedSize++;
     }
 
     methodMessage("addAtIndex()", failure);
@@ -566,7 +646,191 @@ public class Tester {
       test = defaultTestArray();
     }
 
+    System.out.println("\nTesting actual removals with Holes: Extremities");
+    test = defaultTestArray();
+    String[] newExpecteds = {
+      "[test2, test3, test4, test5, test6, test7]",
+      "[test0, test1, test2, test3, test4, test5, test6]",
+      "[test0, test1, test2, test3, test4, test5]",
+    };
+    expectedArrays = newExpecteds;
+
+    for (int index = 0; index < indexToRemove.length; index++) {
+      test.set(indexToRemove[index], null);
+      try {
+        //System.out.println(test.toString());
+        test.remove(indexToRemove[index]);
+        if (test.toString().equals(expectedArrays[index])) {
+          //System.out.println("Removed Right");
+        } else {
+          failure = true;
+          System.out.println("You're not removing right.");
+          errorMessage(index, expectedArrays[index], test.toString());
+        }
+
+        if (test.size() == 7) {
+          //System.out.println("Size right!"";
+        } else {
+          failure = true;
+          System.out.println("You're not adding right.");
+          errorMessage(index, "" + 7, "" + test.size());
+        }
+      } catch (Exception e) {
+        failure = true;
+        System.out.println("You're removing out of index, kid. You shouldn't.");
+      }
+      test = defaultTestArray();
+    }
+
+    int expectedSize = 7;
+    String[] newExpecteds2 = {
+      "[test0, test1, test2, test4, test5, test6]",
+      "[test0, test1, test2, test4, test6]",
+      "[test1, test2, test4, test6]"
+    };
+    int[] newIndexRemoveds = {
+      6,
+      4,
+      0
+    };
+    indexToRemove = newIndexRemoveds;
+    expectedArrays = newExpecteds2;
+    test.set(3, null);
+    for (int index = 0; index < indexToRemove.length; index++) {
+      try {
+        //System.out.println(test.toString());
+        test.remove(indexToRemove[index]);
+        if (test.toString().equals(expectedArrays[index])) {
+          //System.out.println("Removed right!"");
+        } else {
+          failure = true;
+          System.out.println("You're not removing right.");
+          errorMessage(index, expectedArrays[index], test.toString());
+        }
+
+        if (test.size() == expectedSize) {
+          //System.out.println("Size right!"";
+        } else {
+          failure = true;
+          System.out.println("You're not removing right.");
+          errorMessage(index, "" + expectedSize, "" + test.size());
+        }
+      } catch (Exception e) {
+        failure = true;
+        System.out.println("You're adding out of index, kid. You shouldn't.");
+      }
+      expectedSize--;
+    }
+
     methodMessage("remove()", failure);
+    return failure;
+  }
+
+  public static boolean indexOfTester() {
+    System.out.println("\n ~~~ indexOf() TESTER ~~~");
+    boolean failure = false;
+    SuperArray test = new SuperArray();
+    String[] toFind = {
+      "test8",
+      "aardvark",
+      null,
+      ""
+    };
+
+    System.out.println("Testing known bads with empty Array.");
+    for (int index = 0; index < toFind.length; index++) {
+      if (test.indexOf(toFind[index]) == -1) {
+        //passMessage(index);
+      } else {
+        failure = true;
+        errorMessage(index, "-1", "" + test.indexOf(toFind[index]));
+      }
+    }
+
+    System.out.println("\nTesting known bads with occupied Array.");
+    test = defaultTestArray();
+    for (int index = 0; index < toFind.length; index++) {
+      if (test.indexOf(toFind[index]) == -1) {
+        //passMessage(index);
+      } else {
+        failure = true;
+        errorMessage(index, "-1", "" + test.indexOf(toFind[index]));
+      }
+    }
+
+    System.out.println("\nTesting with known goods: continuous array");
+    String[] toFind2 = {
+      "test0",
+      "test1",
+      "test2",
+      "test3",
+      "test4",
+      "test5",
+      "test6",
+      "test7"
+    };
+    toFind = toFind2;
+    for (int index = 0; index < toFind.length; index++) {
+      if (test.indexOf(toFind[index]) == index) {
+        //passMessage(index);
+      } else {
+        failure = true;
+        errorMessage(index, "" + index, "" + test.indexOf(toFind[index]));
+      }
+    }
+
+    System.out.println("\nTesting with mixed goods: holes in array");
+    System.out.println("Testing with holes set by set()");
+    int[] expectedOutput = {
+      -1,
+      0,
+      1,
+      2,
+      -1,
+      3,
+      4,
+      -1
+    };
+    test.set(0, null);
+    test.set(7, null);
+    test.set(4, null);
+    for (int index = 0; index < toFind.length; index++) {
+      if (test.indexOf(toFind[index]) == expectedOutput[index]) {
+        //passMessage(index);
+      } else {
+        failure = true;
+        errorMessage(index, "" + expectedOutput[index], "" + test.indexOf(toFind[index]));
+      }
+    }
+
+    System.out.println("Testing with holes set by remove()");
+    test = defaultTestArray();
+    test.remove(7);
+    test.remove(4);
+    test.remove(0);
+    for (int index = 0; index < toFind.length; index++) {
+      if (test.indexOf(toFind[index]) == expectedOutput[index]) {
+        //passMessage(index);
+      } else {
+        failure = true;
+        errorMessage(index, "" + expectedOutput[index], "" + test.indexOf(toFind[index]));
+      }
+    }
+
+    methodMessage("indexOf()", failure);
+    return failure;
+  }
+
+  public static boolean toArrayTester() {
+    System.out.println("\n ~~~ toArray() TESTER ~~~");
+    boolean failure = false;
+    SuperArray test = new SuperArray();
+    if (test.toArray().length == 0) {
+      System.out.println("Deals with 'empty' Arrays");
+    } else {
+      System.out.println("Doesnt go well with size == 0");
+    }
+
     return failure;
   }
 
