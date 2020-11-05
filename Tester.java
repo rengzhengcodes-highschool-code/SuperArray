@@ -14,6 +14,7 @@ public class Tester {
     failure = containsTester() || failure;
     failure = constructorWithInitialCapacityTester() || failure;
     failure = addAtIndexTester() || failure;
+    failure = removeTester() || failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
@@ -489,6 +490,83 @@ public class Tester {
     }
 
     methodMessage("addAtIndex()", failure);
+    return failure;
+  }
+
+  public static boolean removeTester() {
+    System.out.println("\n ~~~ remove() TESTER");
+    boolean failure = false;
+    SuperArray test = new SuperArray();
+    System.out.println("Testing negative and out of bounds methods.");
+    try {
+      test.remove(-1);
+      failure = true;
+      System.out.println("Someone tried to remove a negative index.");
+    } catch (Exception e) {
+      //System.out.println("Yup, can't remove from a negative index.");
+    }
+
+    try {
+      test.remove(0);
+      failure = true;
+      System.out.println("Removing at out of bounds index!");
+    } catch (Exception e) {
+      //System.out.println("Yup, can't remove something out of index.");
+    }
+
+    try {
+      test.remove(1);
+      failure = true;
+      System.out.println("Removing at out of bounds index!");
+    } catch (Exception e) {
+      //System.out.println("Yup, can't remove something out of index 2.");
+    }
+
+    System.out.println("\nTesting actual removals: Extremities");
+    test = defaultTestArray();
+    int[] indexToRemove = {
+      0,
+      7,
+      6,
+    };
+    String[] expectedArrays = {
+      "[test1, test2, test3, test4, test5, test6, test7]",
+      "[test0, test1, test2, test3, test4, test5, test6]",
+      "[test0, test1, test2, test3, test4, test5, test7]",
+    };
+    String[] expectedRemoveds = {
+      "test0",
+      "test7",
+      "test6",
+    };
+
+    for (int index = 0; index < indexToRemove.length; index++) {
+      try {
+        //System.out.println(test.toString());
+        String output = test.remove(indexToRemove[index]);
+        if (test.toString().equals(expectedArrays[index])) {
+          //System.out.println("Removed right! \n" + test.toString());
+        } else {
+          failure = true;
+          System.out.println("You're not removing right.");
+          errorMessage(index, expectedArrays[index], test.toString());
+        }
+
+        if (output.equals(expectedRemoveds[index]))  {
+          //System.out.println("Returned right value \n" + output);
+        }  else {
+          failure = true;
+          System.out.println("Not returning right value");
+          errorMessage(index, expectedRemoveds[index], output);
+        }
+      } catch (Exception e) {
+        failure = true;
+        System.out.println("You're removing out of index, kid. You shouldn't.");
+      }
+      test = defaultTestArray();
+    }
+
+    methodMessage("remove()", failure);
     return failure;
   }
 

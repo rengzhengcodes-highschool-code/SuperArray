@@ -56,12 +56,10 @@ public class SuperArray {
   }
 
   public String toString() {
-    int addedValues = 0;
     String output = "[";
     String spacer = ", ";
     for (int i = 0; i < this.data.length; i++) {
       if (data[i] != null) {
-        addedValues++;
         output += this.data[i] + spacer;
       }
     }
@@ -96,7 +94,6 @@ public class SuperArray {
     if (index >= this.size || index < 0) {
       throw new ArrayIndexOutOfBoundsException("Out of index for dynamic array");
     }
-    int addOffset = 0;                                                          //not a boolean as extra compute time needed to check boolean
     int dynamicIndex = 0;
     String[] dataNew = new String[this.size + 1];
     dataNew[index] = element;
@@ -105,13 +102,36 @@ public class SuperArray {
         dynamicIndex++;
       }
       if (data[i] != null) {
-        dataNew[dynamicIndex + addOffset] = this.data[i];
+        dataNew[dynamicIndex] = this.data[i];
         dynamicIndex++;
       }
     }
 
     this.size++;
     data = dataNew;
+  }
+
+  public String remove(int index) throws ArrayIndexOutOfBoundsException {
+    if (index >= this.size || index < 0) {
+      throw new ArrayIndexOutOfBoundsException("Out of index for dynamic array");
+    }
+    String[] dataNew = new String[this.size - 1];
+    int dynamicIndex = 0;
+    String popped = "";
+    for (int i = 0; i < this.data.length; i++) {
+      if (data[i] != null) {
+        if (dynamicIndex == index) {
+          popped = data[i];
+          index--;                                                              //avoids using a boolean. if we set the index to before the current dynamic array index, it'll never be encountered again
+        } else {
+          dataNew[dynamicIndex] = data[i];
+          dynamicIndex++;
+        }
+      }
+    }
+
+    this.data = dataNew;
+    return popped;
   }
 
 }
