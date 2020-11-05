@@ -153,7 +153,7 @@ public class SuperArray {
   }
 
   public String[] toArray() {
-    String[] output = new String[size];
+    String[] output = new String[this.size];
     int dynamicIndex = 0;
     for (String element : this.data) {
       if (element != null) {
