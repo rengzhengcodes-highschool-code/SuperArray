@@ -161,6 +161,13 @@ public class SuperArray {
         dynamicIndex++;
       }
     }
+    if (dynamicIndex < this.size - 1) {
+      String[] output2 = new String[dynamicIndex];                               //dynamic index always reflects length of output array at the end.
+      for (int index = 0; index < dynamicIndex; index++) {
+        output2[index] = output[index];
+      }
+      output = output2;
+    }
     return output;
   }
 

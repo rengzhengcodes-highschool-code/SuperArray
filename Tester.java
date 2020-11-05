@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Tester {
 
   public static void main(String[] args) {
@@ -823,14 +825,67 @@ public class Tester {
 
   public static boolean toArrayTester() {
     System.out.println("\n ~~~ toArray() TESTER ~~~");
+    System.out.println("Nothing bad should happen below. It's standard, no whammies.");
     boolean failure = false;
     SuperArray test = new SuperArray();
     if (test.toArray().length == 0) {
-      System.out.println("Deals with 'empty' Arrays");
+      //System.out.println("Deals with 'empty' Arrays");
     } else {
+      failure = true;
       System.out.println("Doesnt go well with size == 0");
     }
 
+    test = defaultTestArray();
+    if(Arrays.toString(test.toArray()).equals(test.toString())) {
+      //System.out.println("Array returns right");
+    } else {
+      failure = true;
+      errorMessage(0, test.toString(), Arrays.toString(test.toArray()));
+    }
+
+    System.out.println("Now time to punch some holes in it.");
+    test.set(0, null);
+    test.set(7, null);
+    test.set(5, null);
+    if(Arrays.toString(test.toArray()).equals(test.toString())) {
+      //System.out.println("Array returns right");
+    } else {
+      failure = true;
+      errorMessage(0, test.toString(), Arrays.toString(test.toArray()));
+    }
+    System.out.println("Now let's do it with remove()");
+    test = defaultTestArray();
+    test.remove(7);
+    test.remove(5);
+    test.remove(0);
+    if (Arrays.toString(test.toArray()).equals(test.toString())) {
+      //System.out.println("Array returns right");
+    } else {
+      failure = true;
+      errorMessage(0, test.toString(), Arrays.toString(test.toArray()));
+    }
+
+    System.out.println("Now let's see if you actually returned different arrays.");
+    test = defaultTestArray();
+    String[] output = test.toArray();
+    if (output == test.toArray()) {
+      failure = true;
+      System.out.println("2 toArray() outputs have the same mem address. Not supposed to happen");
+    } else {
+      //System.out.println("Good job! Two toArray() occurances dont share the same mem address.");
+    }
+    System.out.println("Now let's double check by changing some values");
+    test.add("foo");
+    test.remove(5);
+    test.add(1, "bar");
+    if (!Arrays.toString(output).equals(test.toString())) {
+      //System.out.println("Confirmed");
+    } else {
+      failure = true;
+      System.out.println("Rejected.");
+    }
+
+    methodMessage("toArray()", failure);
     return failure;
   }
 
