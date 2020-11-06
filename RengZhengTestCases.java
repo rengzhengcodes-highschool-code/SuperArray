@@ -1,6 +1,6 @@
 import java.util.Arrays;
-
-public class PhillipVonMuefflingEditedRengZhengTestCases {
+//This is a fork of my original test case, which Phillip Von Mueffling edited down to within the parameter input constraints Mr. K provided.
+public class RengZhengTestCases {
 
   public static void main(String[] args) {
     System.out.println("SuperArray Tester");
