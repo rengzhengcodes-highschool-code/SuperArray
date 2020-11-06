@@ -32,4 +32,30 @@ public class Demo {
     return overlap;
   }
 
+  public static SuperArray zip(SuperArray a, SuperArray b) {
+    int lowestSize = Math.min(a.size(), b.size());
+
+    String[] elementsA = a.toArray();
+    String[] elementsB = b.toArray();
+    String[] largest;
+    if (elementsA.length > elementsB.length) {
+      largest = elementsA;
+    } else {
+      largest = elementsB;
+    }
+
+    SuperArray output = new SuperArray(lowestSize * 2);
+    int index = 0;
+    for (; index < lowestSize; index++) {
+      output.add(elementsA[index]);
+      output.add(elementsB[index]);
+    }
+
+    for (; index < largest.length; index++) {
+      output.add(largest[index]);
+    }
+
+    return output;
+  }
+
 }

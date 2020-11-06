@@ -6,6 +6,7 @@ public class DemoTester {
     boolean failure = false;
 
     failure = findOverlapTester() || failure;
+    failure = zipTester() || failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
@@ -56,7 +57,7 @@ public class DemoTester {
       passMessage(0);
     } else {
       failure = true;
-      errorMessage(1, expectedArray.toString(), output.toArray().toString());
+      errorMessage(0, expectedArray.toString(), output.toArray().toString());
     }
 
     for (String element : aElements) {
@@ -75,6 +76,73 @@ public class DemoTester {
       errorMessage(1, expectedArray1.toString(), output.toArray().toString());
     }
 
+    methodMessage("findOverlap", failure);
+    return failure;
+  }
+
+  public static boolean zipTester() {
+    testerMessage("zip()");
+    boolean failure = false;
+    String[] elementsA = {
+      "a","b","c","d","e","f"
+    };
+    String[] elementsB = {
+      "0","1","2","3"
+    };
+    String[] expectedOutputArray = {
+      "a","0","b","1","c","2","d","3","e","f"
+    };
+
+    SuperArray a = new SuperArray();
+    SuperArray b = new SuperArray();
+    SuperArray c = new SuperArray();
+    for (int index = 0; index < elementsA.length; index++) {
+      a.add(elementsA[index]);
+    }
+    for (int index = 0; index < elementsB.length; index++) {
+      b.add(elementsB[index]);
+    }
+    for (int index = 0; index < expectedOutputArray.length; index++) {
+      c.add(expectedOutputArray[index]);
+    }
+
+    if (c.equals(Demo.zip(a, b))) {
+      passMessage(0);
+    } else {
+      failure = true;
+      errorMessage(0, c.toString(), Demo.zip(a, b).toString());
+    }
+
+    String[] elementsA1 = {
+      "a","b","c"
+    };
+    String[] elementsB1 = {
+      "0","1","2","3","4"
+    };
+    String[] expectedOutputArray1 = {
+      "a","0","b","1","c","2","3","4"
+    };
+    a.clear();
+    b.clear();
+    c.clear();
+    for (int index = 0; index < elementsA1.length; index++) {
+      a.add(elementsA1[index]);
+    }
+    for (int index = 0; index < elementsB1.length; index++) {
+      b.add(elementsB1[index]);
+    }
+    for (int index = 0; index < expectedOutputArray1.length; index++) {
+      c.add(expectedOutputArray1[index]);
+    }
+
+    if (c.equals(Demo.zip(a, b))) {
+      passMessage(1);
+    } else {
+      failure = true;
+      errorMessage(1, c.toString(), Demo.zip(a, b).toString());
+    }
+
+    methodMessage("zip()", failure);
     return failure;
   }
 
