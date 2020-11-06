@@ -19,6 +19,7 @@ public class RengZhengTestCases {
     failure = removeTester() || failure;
     failure = indexOfTester() ||failure;
     failure = toArrayTester() || failure;
+    failure = removeDuplicatesTester() || failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
@@ -887,6 +888,69 @@ public class RengZhengTestCases {
     }
 
     methodMessage("toArray()", failure);
+    return failure;
+  }
+
+  public static boolean removeDuplicatesTester() {
+    System.out.println("\n ~~~ removedDuplicates() TESTER ~~~");
+    boolean failure = false;
+    SuperArray[] tests = {
+      new SuperArray(),//tests empty
+      defaultTestArray(),//tests nonoverlap
+      new SuperArray(),//tests all same
+      new SuperArray(),//tests just 1
+      defaultTestArray()//tests extremities simultaneously
+    };
+    int[] expectedSizes = {
+      0,
+      8,
+      1,
+      1,
+      7,
+    };
+    String[] expectedStringOutputs = {
+      "[]",
+      "[test0, test1, test2, test3, test4, test5, test6, test7]",
+      "[foo]",
+      "[foo]",
+      "[test0, test1, test2, test3, test4, test5, test6]"
+    };
+    for (int index = 0; index < 8; index++) {                         //sets a SuperArray to just "foo"
+      tests[2].add("foo");
+    }
+    tests[3].add("foo");
+    tests[4].set(7, "test0");
+
+    for (SuperArray test : tests) {
+      SuperArray.removeDuplicates(test);
+    }
+
+    for (int index = 0; index < tests.length; index++) {
+      boolean caseFailure = false;
+      if (tests[index].size() == expectedSizes[index]) {
+        //System.out.println("Size for test case " + index + " checks out.");
+      } else {
+        caseFailure = true;
+        errorMessage(index, "" + expectedSizes[index], "" + tests[index].size());
+      }
+
+      if (tests[index].toString().equals(expectedStringOutputs[index])) {
+        //System.out.println("String for test case " + index + " checks out.");
+      } else {
+        caseFailure = true;
+        errorMessage(index, "" + expectedStringOutputs[index], "" + tests[index].toString());
+      }
+
+      if (caseFailure) {
+        errorMessage(index, "Check above", "Check above");
+      } else {
+        //passMessage(index);
+      }
+
+      failure = caseFailure || failure;
+    }
+
+    methodMessage("removeDuplicates()", failure);
     return failure;
   }
 

@@ -171,4 +171,28 @@ public class SuperArray {
     return output;
   }
 
+  public static void removeDuplicates(SuperArray s) {
+    String[] occurred = new String[s.size];
+    int uniqueElements = 0;
+    for (String element : s.data) {
+      if (element != null) {//avoids null pointer exception from String.equals()
+        //dupe check with occurreds key.
+        boolean dupe = false;
+        for (int i = 0; i < occurred.length; i++) {
+          if (element.equals(occurred[i])) {
+            dupe = true;
+          }
+        }
+
+        if (!dupe) {
+          occurred[uniqueElements] = element;
+          uniqueElements++;
+        }
+      }
+    }
+
+    s.size = uniqueElements;
+    s.data = occurred;
+  }
+
 }
