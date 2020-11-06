@@ -3,7 +3,16 @@ import java.util.Arrays;
 public class DemoTester {
 
   public static void main(String[] args) {
-    findOverlapTester();
+    boolean failure = false;
+
+    failure = findOverlapTester() || failure;
+
+    System.out.println("\n ~~~ Overall Result ~~~");
+    if (failure) {
+      System.out.println("Is that blue smoke?");
+    } else {
+      System.out.println("All's good in the neighbourhood");
+    }
   }
 
   private static void passMessage (int testCase) {
