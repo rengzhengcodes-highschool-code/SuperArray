@@ -31,9 +31,14 @@ public class SuperArray {
   }
 
   public String set(int index, String element) {
-    String replaced = this.data[index];
-    this.data[index] = element;
-    return replaced;
+    if (element == null) {
+      this.remove(index);
+      return null;
+    } else {
+      String replaced = this.data[index];
+      this.data[index] = element;
+      return replaced;
+    }
   }
 
   private void resize() {
@@ -169,27 +174,14 @@ public class SuperArray {
   }
 
   public static void removeDuplicates(SuperArray s) {
-    String[] occurred = new String[s.size];
-    int uniqueElements = 0;
-    for (String element : s.data) {
-      if (element != null) {//avoids null pointer exception from String.equals()
-        //dupe check with occurreds key.
-        boolean dupe = false;
-        for (int i = 0; i < occurred.length; i++) {
-          if (element.equals(occurred[i])) {
-            dupe = true;
-          }
-        }
 
-        if (!dupe) {
-          occurred[uniqueElements] = element;
-          uniqueElements++;
-        }
+    for (int index = s.size - 1; index >= 0; index--) {
+      String element = s.data[index];
+      if (s.indexOf(element) != index) {
+        s.remove(index);
       }
     }
 
-    s.size = uniqueElements;
-    s.data = occurred;
   }
 
   public int lastIndexOf(String s) {
