@@ -19,7 +19,7 @@ public class RengZhengTestCases {
     failure = removeTester() || failure;
     failure = indexOfTester() ||failure;
     failure = toArrayTester() || failure;
-    failure = removeDuplicatesTester() || failure;
+    //failure = removeDuplicatesTester() || failure;
     failure = lastIndexOfTester() || failure;
     failure = equalsTester() || failure;
 
