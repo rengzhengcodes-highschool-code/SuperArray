@@ -20,12 +20,13 @@ public class RengZhengTestCases {
     failure = indexOfTester() ||failure;
     failure = toArrayTester() || failure;
     failure = removeDuplicatesTester() || failure;
+    failure = lastIndexOfTester() || failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
       System.out.println("Is that blue smoke?");
     } else {
-      System.out.println("All's good in the neighborhood");
+      System.out.println("All's good in the neighbourhood");
     }
   }
 
@@ -821,6 +822,17 @@ public class RengZhengTestCases {
       }
     }
 
+    System.out.println("Now for the same elements");
+    SuperArray allSameTest = new SuperArray();
+    allSameTest.add("foo");
+    allSameTest.add("foo");
+    if (allSameTest.indexOf("foo") == 0) {
+      //passMessage(0);
+    } else {
+      failure = true;
+      errorMessage(0, "" + 1, "" + allSameTest.indexOf("foo"));
+    }
+
     methodMessage("indexOf()", failure);
     return failure;
   }
@@ -951,6 +963,100 @@ public class RengZhengTestCases {
     }
 
     methodMessage("removeDuplicates()", failure);
+    return failure;
+  }
+
+  public static boolean lastIndexOfTester() {
+    System.out.println("\n ~~~ lastIndexOf() TESTER ~~~");
+    boolean failure = false;
+    SuperArray test = new SuperArray();
+    String[] toFind = {
+      "test8",
+      "aardvark",
+      null,
+      ""
+    };
+
+    System.out.println("Testing known bads with empty Array.");
+    for (int index = 0; index < toFind.length; index++) {
+      if (test.lastIndexOf(toFind[index]) == -1) {
+        //passMessage(index);
+      } else {
+        failure = true;
+        errorMessage(index, "-1", "" + test.lastIndexOf(toFind[index]));
+      }
+    }
+
+    System.out.println("\nTesting known bads with occupied Array.");
+    test = defaultTestArray();
+    for (int index = 0; index < toFind.length; index++) {
+      if (test.lastIndexOf(toFind[index]) == -1) {
+        //passMessage(index);
+      } else {
+        failure = true;
+        errorMessage(index, "-1", "" + test.lastIndexOf(toFind[index]));
+      }
+    }
+
+    System.out.println("\nTesting with known goods: continuous array");
+    String[] toFind2 = {
+      "test0",
+      "test1",
+      "test2",
+      "test3",
+      "test4",
+      "test5",
+      "test6",
+      "test7"
+    };
+    toFind = toFind2;
+    for (int index = 0; index < toFind.length; index++) {
+      if (test.lastIndexOf(toFind[index]) == index) {
+        //passMessage(index);
+      } else {
+        failure = true;
+        errorMessage(index, "" + index, "" + test.lastIndexOf(toFind[index]));
+      }
+    }
+
+    System.out.println("\nTesting with mixed goods: holes in array");
+    int[] expectedOutput = {
+      -1,
+      0,
+      1,
+      2,
+      -1,
+      3,
+      4,
+      -1
+    };
+
+    System.out.println("Testing with holes set by remove()");
+    test = defaultTestArray();
+    test.remove(7);
+    test.remove(4);
+    test.remove(0);
+    for (int index = 0; index < toFind.length; index++) {
+      if (test.lastIndexOf(toFind[index]) == expectedOutput[index]) {
+        //passMessage(index);
+      } else {
+        failure = true;
+        errorMessage(index, "" + expectedOutput[index], "" + test.lastIndexOf(toFind[index]));
+      }
+    }
+
+    System.out.println("Now for the same elements");
+    SuperArray allSameTest = new SuperArray();
+    allSameTest.add("foo");
+    allSameTest.add("foo");
+    if (allSameTest.lastIndexOf("foo") == 1) {
+      //passMessage(0);
+    } else {
+      failure = true;
+      errorMessage(0, "" + 1, "" + allSameTest.lastIndexOf("foo"));
+    }
+
+    methodMessage("lastIndexOf()", failure);
     return failure;
   }
 

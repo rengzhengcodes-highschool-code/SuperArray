@@ -136,16 +136,13 @@ public class SuperArray {
   }
 
   public int indexOf(String s) {
-    if (this.size == 0) {
-      return -1;
-    }
-    int dynamicIndex = 0;
+    int dynamicIndex = -1;
     for (String element : this.data) {
       if (element != null) {
+        dynamicIndex++;
         if (element.equals(s)) {
           return dynamicIndex;
         }
-        dynamicIndex++;
       }
     }
 
@@ -193,6 +190,21 @@ public class SuperArray {
 
     s.size = uniqueElements;
     s.data = occurred;
+  }
+
+  public int lastIndexOf(String s) {
+    int dynamicIndex = this.size();
+    for (int i = this.data.length - 1; i >= 0; i--) {
+      String element = this.data[i];
+      if (element != null) {
+        dynamicIndex--;
+        if (element.equals(s)) {
+          return dynamicIndex;
+        }
+      }
+    }
+
+    return -1;
   }
 
 }
