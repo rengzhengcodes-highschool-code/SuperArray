@@ -21,6 +21,7 @@ public class RengZhengTestCases {
     failure = toArrayTester() || failure;
     failure = removeDuplicatesTester() || failure;
     failure = lastIndexOfTester() || failure;
+    failure = equalsTester() || failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
@@ -413,7 +414,7 @@ public class RengZhengTestCases {
       //System.out.println("Your array doesn't think it has null values even with holes in the static!");
     }
 
-*/
+    */
     methodMessage("contains()", failure);
     return failure;
   }
@@ -445,11 +446,11 @@ public class RengZhengTestCases {
       //test.add(-1, "0");
       //failure = true;
       //System.out.println("Someone added to a negative index.");
-  //  } catch (Exception e) {
+    //} catch (Exception e) {
       //System.out.println("Yup, can't add to a negative index.");
-  //  }
+    //}
 
-  /*  try {
+    /*try {
       test.add(0, "0");
       failure = true;
       System.out.println("Inserting at out of bounds index!");
@@ -572,8 +573,8 @@ public class RengZhengTestCases {
         System.out.println("You're adding out of index, kid. You shouldn't.");
       }
       expectedSize++;
-    }
-*/
+    }*/
+
     methodMessage("addAtIndex()", failure);
     return failure;
   }
@@ -660,7 +661,7 @@ public class RengZhengTestCases {
     };
     expectedArrays = newExpecteds;
 
-  /*  for (int index = 0; index < indexToRemove.length; index++) {
+    /*for (int index = 0; index < indexToRemove.length; index++) {
       test.set(indexToRemove[index], null);
       try {
         //System.out.println(test.toString());
@@ -725,8 +726,8 @@ public class RengZhengTestCases {
         System.out.println("You're adding out of index, kid. You shouldn't.");
       }
       expectedSize--;
-    }
-*/
+    }*/
+
     methodMessage("remove()", failure);
     return failure;
   }
@@ -785,7 +786,7 @@ public class RengZhengTestCases {
     }
 
     System.out.println("\nTesting with mixed goods: holes in array");
-  System.out.println("Testing with holes set by set()");
+    System.out.println("Testing with holes set by set()");
     int[] expectedOutput = {
       -1,
       0,
@@ -796,7 +797,7 @@ public class RengZhengTestCases {
       4,
       -1
     };
-    /* test.set(0, null);
+    /*test.set(0, null);
     test.set(7, null);
     test.set(4, null);
     for (int index = 0; index < toFind.length; index++) {
@@ -806,8 +807,7 @@ public class RengZhengTestCases {
         failure = true;
         errorMessage(index, "" + expectedOutput[index], "" + test.indexOf(toFind[index]));
       }
-    }
-*/
+    }*/
     System.out.println("Testing with holes set by remove()");
     test = defaultTestArray();
     test.remove(7);
@@ -1060,4 +1060,54 @@ public class RengZhengTestCases {
     return failure;
   }
 
+  public static boolean equalsTester() {
+    System.out.println("\n ~~~ equals() TESTER ~~~");
+    boolean failure = false;
+    SuperArray a = new SuperArray();
+    SuperArray b = new SuperArray();
+    if (a.equals(b)) {
+      //passMessage(0);
+    } else {
+      errorMessage(0, "" + true, "" + a.equals(b));
+    }
+
+    b = defaultTestArray();
+    if (!a.equals(b)) {
+      //passMessage(1);
+    } else {
+      errorMessage(1, "" + true, "" + a.equals(b));
+    }
+
+    a = defaultTestArray();
+    b = new SuperArray();
+    if (!a.equals(b)) {
+      //passMessage(2);
+    } else {
+      errorMessage(2, "" + true, "" + a.equals(b));
+    }
+
+    b = defaultTestArray();
+    if (a.equals(b)) {
+      //passMessage(3);
+    } else {
+      errorMessage(3, "" + true, "" + a.equals(b));
+    }
+
+    b.set(7, "foo");
+    if (!a.equals(b)) {
+      //passMessage(4);
+    } else {
+      errorMessage(4, "" + true, "" + a.equals(b));
+    }
+
+    b.remove(7);
+    if (!a.equals(b)) {
+      //passMessage(5);
+    } else {
+      errorMessage(5, "" + true, "" + a.equals(b));
+    }
+
+    methodMessage("equals()", failure);
+    return failure;
+  }
 }

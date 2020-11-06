@@ -207,4 +207,20 @@ public class SuperArray {
     return -1;
   }
 
+  public boolean equals(SuperArray other) {
+    String[] thisElements = this.toArray();
+    String[] otherElements = other.toArray();
+    if (thisElements.length != otherElements.length) {
+      return false;
+    }
+
+    for (int index = 0; index < thisElements.length; index++) {
+      if (!thisElements[index].equals(otherElements[index])) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
 }
