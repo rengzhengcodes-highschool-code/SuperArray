@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class Tester {
+public class TesterforNewSet {
 
   public static void main(String[] args) {
     System.out.println("SuperArray Tester");
@@ -524,7 +524,7 @@ public class Tester {
           errorMessage(index, expected[index], test.toString());
         }
 
-        if (test.size() == 9) {
+        if (test.size() == 8) {
           //System.out.println("Size right!"";
         } else {
           failure = true;
@@ -538,7 +538,7 @@ public class Tester {
       test = defaultTestArray();
     }
 
-    int expectedSize = 9;
+    int expectedSize = 8;
     String[] newExpecteds2 = {
       "[0, test0, test1, test2, test4, test5, test6, test7]",
       "[0, test0, test1, test2, test4, test5, test6, 0, test7]",
@@ -671,12 +671,12 @@ public class Tester {
           errorMessage(index, expectedArrays[index], test.toString());
         }
 
-        if (test.size() == 7) {
+        if (test.size() == 6) {
           //System.out.println("Size right!"";
         } else {
           failure = true;
-          System.out.println("You're not adding right.");
-          errorMessage(index, "" + 7, "" + test.size());
+          System.out.println("You're not removing right.");
+          errorMessage(index, "" + 6, "" + test.size());
         }
       } catch (Exception e) {
         failure = true;
@@ -685,7 +685,7 @@ public class Tester {
       test = defaultTestArray();
     }
 
-    int expectedSize = 7;
+    int expectedSize = 6;
     String[] newExpecteds2 = {
       "[test0, test1, test2, test4, test5, test6]",
       "[test0, test1, test2, test4, test6]",
@@ -794,9 +794,9 @@ public class Tester {
       4,
       -1
     };
-    test.set(0, null);
     test.set(7, null);
     test.set(4, null);
+    test.set(0, null);
     for (int index = 0; index < toFind.length; index++) {
       if (test.indexOf(toFind[index]) == expectedOutput[index]) {
         //passMessage(index);
@@ -845,9 +845,9 @@ public class Tester {
     }
 
     System.out.println("Now time to punch some holes in it.");
-    test.set(0, null);
     test.set(7, null);
     test.set(5, null);
+    test.set(0, null);
     if(Arrays.toString(test.toArray()).equals(test.toString())) {
       //System.out.println("Array returns right");
     } else {
