@@ -47,7 +47,6 @@ public class DemoTester {
     return test;
   }
 
-
   public static boolean findOverlapTester() {
     testerMessage("findOverlap()");
     boolean failure = false;
@@ -67,7 +66,7 @@ public class DemoTester {
       passMessage(0);
     } else {
       failure = true;
-      errorMessage(0, expectedArray.toString(), output.toArray().toString());
+      errorMessage(0, Arrays.toString(expectedArray), Arrays.toString(output.toArray()));
     }
 
     for (String element : aElements) {
@@ -83,18 +82,49 @@ public class DemoTester {
       passMessage(1);
     } else {
       failure = true;
-      errorMessage(1, expectedArray1.toString(), output.toArray().toString());
+      errorMessage(1, Arrays.toString(expectedArray1), Arrays.toString(output.toArray()));
     }
 
     a.clear();
     b.clear();
     String[] expectedArray2 = {};
-    output = new SuperArray();
+    output = Demo.findOverlap(a, b);
     if (Arrays.equals(output.toArray(), expectedArray2)) {
       passMessage(2);
     } else {
       failure = true;
-      errorMessage(2, expectedArray2.toString(), output.toArray().toString());
+      errorMessage(2, Arrays.toString(expectedArray2), Arrays.toString(output.toArray()));
+    }
+
+    a = defaultTestArray();
+    b = defaultTestArray();
+    String[] expectedArray3 = defaultTestArray().toArray();
+    output = Demo.findOverlap(a, b);
+    if (Arrays.equals(output.toArray(), expectedArray3)) {
+      passMessage(3);
+    } else {
+      failure = true;
+      errorMessage(3, Arrays.toString(expectedArray3), Arrays.toString(output.toArray()));
+    }
+
+    a.clear();
+    String[] expectedArray4 = {};
+    output = Demo.findOverlap(a, b);
+    if (Arrays.equals(output.toArray(), expectedArray4)) {
+      passMessage(4);
+    } else {
+      failure = true;
+      errorMessage(4, Arrays.toString(expectedArray4), Arrays.toString(output.toArray()));
+    }
+
+    a = defaultTestArray();
+    b.clear();
+    output = Demo.findOverlap(a, b);
+    if (Arrays.equals(output.toArray(), expectedArray4)) {
+      passMessage(5);
+    } else {
+      failure = true;
+      errorMessage(5, Arrays.toString(expectedArray4), Arrays.toString(output.toArray()));
     }
 
     methodMessage("findOverlap", failure);
@@ -171,6 +201,37 @@ public class DemoTester {
     } else {
       failure = true;
       errorMessage(2, c.toString(), Demo.zip(a, b).toString());
+    }
+
+    a = defaultTestArray();
+    c = defaultTestArray();
+    if (c.equals(Demo.zip(a, b))) {
+      passMessage(3);
+    } else {
+      failure = true;
+      errorMessage(3, c.toString(), Demo.zip(a, b).toString());
+    }
+
+    a.clear();
+    b = defaultTestArray();
+    if (c.equals(Demo.zip(a, b))) {
+      passMessage(4);
+    } else {
+      failure = true;
+      errorMessage(4, c.toString(), Demo.zip(a, b).toString());
+    }
+
+    a = defaultTestArray();
+    c.clear();
+    for (int i = 0; i < defaultTestArray().size(); i++) {
+      c.add(defaultTestArray().get(i));
+      c.add(defaultTestArray().get(i));
+    }
+    if (c.equals(Demo.zip(a, b))) {
+      passMessage(5);
+    } else {
+      failure = true;
+      errorMessage(5, c.toString(), Demo.zip(a, b).toString());
     }
 
     methodMessage("zip()", failure);
