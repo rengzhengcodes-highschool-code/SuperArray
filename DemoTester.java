@@ -86,6 +86,17 @@ public class DemoTester {
       errorMessage(1, expectedArray1.toString(), output.toArray().toString());
     }
 
+    a.clear();
+    b.clear();
+    String[] expectedArray2 = {};
+    output = new SuperArray();
+    if (Arrays.equals(output.toArray(), expectedArray2)) {
+      passMessage(2);
+    } else {
+      failure = true;
+      errorMessage(2, expectedArray2.toString(), output.toArray().toString());
+    }
+
     methodMessage("findOverlap", failure);
     return failure;
   }
@@ -150,6 +161,16 @@ public class DemoTester {
     } else {
       failure = true;
       errorMessage(1, c.toString(), Demo.zip(a, b).toString());
+    }
+
+    a.clear();
+    b.clear();
+    c.clear();
+    if (c.equals(Demo.zip(a, b))) {
+      passMessage(2);
+    } else {
+      failure = true;
+      errorMessage(2, c.toString(), Demo.zip(a, b).toString());
     }
 
     methodMessage("zip()", failure);
