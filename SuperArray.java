@@ -92,7 +92,7 @@ public class SuperArray {
 
   public SuperArray(int initialCapacity) throws ArrayIndexOutOfBoundsException {
       this.size = 0;
-      this.data = new String[initialCapacity];
+      this.data = new String[Math.max(initialCapacity, 1)];
   }
 
   public void add(int index, String element) {
