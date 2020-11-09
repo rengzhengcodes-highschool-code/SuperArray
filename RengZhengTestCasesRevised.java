@@ -26,6 +26,7 @@ public class RengZhengTestCasesRevised {
     failure = throwsGetTester() || failure;
     failure = throwsSetTester() || failure;
     failure = throwsAddTester() || failure;
+    failure = throwsRemoveTester() || failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
@@ -1437,4 +1438,100 @@ public class RengZhengTestCasesRevised {
     methodMessage("throw add()", failure);
     return failure;
   }
+
+  public static boolean throwsRemoveTester() {
+    System.out.println("\n ~~~ throws remove() TESTER ~~~");
+    SuperArray test = new SuperArray(0);
+    boolean failure = false;
+    int[] indexes = {
+      -1,
+      0,
+      1,
+      7,
+      8
+    };
+    boolean[] expectedThrows = {
+      true,
+      true,
+      true,
+      true,
+      true
+    };
+
+    System.out.println("0 Length Test");
+    for (int i = 0; i < indexes.length; i++) {
+      test = new SuperArray(0);
+      try {
+        test.remove(indexes[i]);
+        if (expectedThrows[i]) {
+          failure = true;
+          errorMessage(i, "It to throw something.", null);
+        } else {
+          //passMessage(i);
+        }
+      } catch (IndexOutOfBoundsException e) {
+        if (!expectedThrows[i]) {
+          failure = true;
+          errorMessage(i, "It to not throw something.", e.toString());
+        } else {
+          //passMessage(i);
+        }
+      }
+    }
+
+    System.out.println("\nUnoccupied Array Test");
+    test = new SuperArray();
+    for (int i = 0; i < indexes.length; i++) {
+      test = new SuperArray();
+      try {
+        test.remove(indexes[i]);
+        if (expectedThrows[i]) {
+          failure = true;
+          errorMessage(i, "It to throw something.", null);
+        } else {
+          //passMessage(i);
+        }
+      } catch (IndexOutOfBoundsException e) {
+        if (!expectedThrows[i]) {
+          failure = true;
+          errorMessage(i, "It to not throw something.", e.toString());
+        } else {
+          //passMessage(i);
+        }
+      }
+    }
+
+    System.out.println("\nOccupied Array Test");
+    test = defaultTestArray();
+    expectedThrows = new boolean[] {
+      true,
+      false,
+      false,
+      false,
+      true
+    };
+    for (int i = 0; i < indexes.length; i++) {
+      test = defaultTestArray();
+      try {
+        test.remove(indexes[i]);
+        if (expectedThrows[i]) {
+          failure = true;
+          errorMessage(i, "It to throw something.", null);
+        } else {
+          //passMessage(i);
+        }
+      } catch (IndexOutOfBoundsException e) {
+        if (!expectedThrows[i]) {
+          failure = true;
+          errorMessage(i, "It to not throw something.", e.toString());
+        } else {
+          //passMessage(i);
+        }
+      }
+    }
+
+    methodMessage("throw set()", failure);
+    return failure;
+  }
+
 }
