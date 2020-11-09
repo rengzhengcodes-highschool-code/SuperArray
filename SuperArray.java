@@ -22,7 +22,10 @@ public class SuperArray {
     return true;
   }
 
-  public String get(int index) {
+  public String get(int index) throws IndexOutOfBoundsException {
+    if (index < 0 || index >= this.size) {
+      throw new IndexOutOfBoundsException("Index " + index + " out of bounds.");
+    }
     if (index < this.size) {
       return this.data[index];
     } else {
@@ -30,8 +33,10 @@ public class SuperArray {
     }
   }
 
-  public String set(int index, String element) {
-    if (element == null) {
+  public String set(int index, String element) throws IndexOutOfBoundsException {
+    if (index < 0 || index >= this.size) {
+      throw new IndexOutOfBoundsException("Index " + index + " out of bounds.");
+    } else if (element == null) {
       this.remove(index);
       return null;
     } else {
@@ -42,7 +47,7 @@ public class SuperArray {
   }
 
   private void resize() {
-    String[] dataNew = new String[this.data.length * 2];
+    String[] dataNew = new String[Math.max(1, this.data.length * 2)];
 
     for (int index = 0; index < this.data.length; index++) {
       dataNew[index] = this.data[index];
@@ -90,14 +95,17 @@ public class SuperArray {
     return false;
   }
 
-  public SuperArray(int initialCapacity) throws ArrayIndexOutOfBoundsException {
-      this.size = 0;
-      this.data = new String[Math.max(initialCapacity, 1)];
+  public SuperArray(int initialCapacity) throws IllegalArgumentException {
+    if (initialCapacity < 0) {
+      throw new IllegalArgumentException("Initial capacity " + initialCapacity + " cannot be negative.");
+    }
+    this.size = 0;
+    this.data = new String[initialCapacity];
   }
 
   public void add(int index, String element) {
-    if (index >= this.size || index < 0) {
-      throw new ArrayIndexOutOfBoundsException("Out of index for dynamic array");
+    if (index < 0 || index > this.size) {
+      throw new IndexOutOfBoundsException("Index " + index + " out of bounds.");
     }
     int dynamicIndex = 0;
     String[] dataNew = new String[this.size + 1];
@@ -116,9 +124,9 @@ public class SuperArray {
     data = dataNew;
   }
 
-  public String remove(int index) throws ArrayIndexOutOfBoundsException {
-    if (index >= this.size || index < 0) {
-      throw new ArrayIndexOutOfBoundsException("Out of index for dynamic array");
+  public String remove(int index) throws IndexOutOfBoundsException {
+    if (index < 0 || index >= this.size) {
+      throw new IndexOutOfBoundsException("Index " + index + " out of bounds.");
     }
     String[] dataNew = new String[this.size - 1];
     int dynamicIndex = 0;
