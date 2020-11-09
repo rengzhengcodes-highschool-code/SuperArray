@@ -121,7 +121,7 @@ public class SuperArray {
     }
 
     this.size++;
-    data = dataNew;
+    this.data = dataNew;
   }
 
   public String remove(int index) throws IndexOutOfBoundsException {
