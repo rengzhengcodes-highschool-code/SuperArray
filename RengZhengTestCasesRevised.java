@@ -27,6 +27,7 @@ public class RengZhengTestCasesRevised {
     failure = throwsSetTester() || failure;
     failure = throwsAddTester() || failure;
     failure = throwsRemoveTester() || failure;
+    failure = constructorInit0Tester() || failure;
 
     System.out.println("\n ~~~ Overall Result ~~~");
     if (failure) {
@@ -1532,6 +1533,25 @@ public class RengZhengTestCasesRevised {
 
     methodMessage("throw set()", failure);
     return failure;
+  }
+
+  public static boolean constructorInit0Tester() {
+    System.out.println("\n ~~~ constructorInit0 TESTER ~~~");
+    SuperArray test = new SuperArray(0);
+    String[] expectedArray = new String[500];
+
+    try {
+      for (int i = 0; i < 500; i++) {
+        test.add(""+i);
+        expectedArray[i] = ""+i;
+      }
+      methodMessage("constructorInit0", !Arrays.equals(expectedArray, test.toArray()));
+      return !Arrays.equals(expectedArray, test.toArray());
+    } catch (Exception e) {
+      System.out.println(e.toString());
+      methodMessage("constructorInit0", true);
+      return true;
+    }
   }
 
 }
